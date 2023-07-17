@@ -1,14 +1,16 @@
 # NLP Demo
 
-### Go back to my profile page
-[garth-c profile page] (https://github.com/garth-c)
+This goal for this project is to demo NLP sentiment analysis capabilities in both Python and R through Python. The R portion will focus on the similarity scoring between the tweets and the Python section will focus on sentiment analysis. 
 
-This goal for this project is to demo NLP capabilities in both Python and R through Python. 
-
-The data set used for this demo is the 2015 subset of tweets for airlines. The data set is 14,519 records long and it contains publically available tweets regarding various aspects related to airlines. The tweets are all in English and the are in a single .csv file. A snippet of the file is shown below.
-
+### Data set description
+The data set used for this demo is the 2015 subset of tweets for airlines. The data set is from Kaggle.com and it is 14,519 records long and it contains publically available tweets regarding various aspects related to airlines. The tweets are all in English and the are in a single .csv file. A snippet of the file is shown below.
 
 <img width="472" alt="image" src="https://github.com/garth-c/nlp_demo/assets/138831938/c005c2ea-ebf5-4432-ae4a-3e6ec91f4cef">
+
+------------------------------------------------------------------------------------------------------
+
+### Go back to my profile page
+[garth-c profile page] (https://github.com/garth-c)
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -302,7 +304,7 @@ text_data_net_all$text[2]
 View(text_data_net_all)
 ```
 
-The bext step is to create a corpus and start with the data prep portion. This consists of removing symbols, padding, etc. from the data set.
+The next step is to create a corpus and start with the data prep portion. This consists of removing symbols, padding, etc. from the data set.
 
 ```
 ###~~~
