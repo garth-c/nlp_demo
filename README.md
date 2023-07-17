@@ -228,6 +228,10 @@ def sentiment_score(doc_string):
 docs['sentiment_score'] = (docs['text_cleaned'].apply(lambda x: sentiment_score(x[:512])))
 ```
 
+The output of the function is shown below in the Pandas data frame:
+
+![torch](https://github.com/garth-c/nlp_demo/assets/138831938/2fa55bcf-f366-41ad-977f-cf7d0428351c)
+
 Plot the counts by star ratings.
 
 ```
@@ -238,6 +242,9 @@ for i in counts.containers:
     counts.bar_label(i, label_type = 'edge')
 plt.show(block = True)
 ```
+The plot shows a much more negative sentiment than the nltk version. This also highlights that different sentiment models will have different conclusions on the same source data and that the most appropriate version for the project should be applied. 
+
+![pytorch](https://github.com/garth-c/nlp_demo/assets/138831938/950fbb56-7176-459f-857b-99629aeb54c0)
 
 --------------------------------------------------------------------
 
