@@ -52,6 +52,8 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 ```
 
+-------------------------------------------------------------------------------------------------------
+
 # read in the source data
 
 The next step is to read in the source data set and perform any needed data prep. The .csv file is read in and pushed to a Pandas data frame.
@@ -78,6 +80,8 @@ A screen shot from the console of the import is below
 The only data prep step for the sentiment analysis that I performed was to lower case all of the text into a new column in the Pandas data frame. The output of this step is shown below. 
 
 <img width="450" alt="image" src="https://github.com/garth-c/nlp_demo/assets/138831938/adf11310-f798-4e45-91da-c70ab9b219cd">
+
+-----------------------------------------------------------------------------------
 
 # lematize the tokens
 
@@ -108,6 +112,8 @@ docs['text_lem'] = docs['text_lower'].apply(lemmatize_words)
 The output of this step is below.
 
 <img width="656" alt="image" src="https://github.com/garth-c/nlp_demo/assets/138831938/aa4a0b0a-7b0d-438a-8aac-13fe1e5dfdfe">
+
+----------------------------------------------------------------------------------
 
 # nltk sentiment results
 
@@ -147,6 +153,8 @@ plt.show(block = True)
 
 ![nltk](https://github.com/garth-c/nlp_demo/assets/138831938/81baf8b1-4129-44fb-becd-3b1b8dfec6ff)
 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
 # Pytorch sentiment analysis
 
@@ -193,6 +201,9 @@ Swapping the test sentense out with "the flight was the worst experience ever!!"
 
 Now that the model seems to be calibrated well, it's time to apply the model to the source data.
 
+
+----------------------------------------------------------------------------------------------------------------
+
 # apply model to the data
 
 Since Pytorch will only read the first 512 characters, the sentiment score will be based on this cut off value. The process is implemted using a function to apply the model to the data and put the output in star ratings into a new column in a Pandas data frame. This model is also applied to the lower cased data but no other data prep steps were applied. 
@@ -212,7 +223,7 @@ def sentiment_score(doc_string):
 docs['sentiment_score'] = (docs['text_cleaned'].apply(lambda x: sentiment_score(x[:512])))
 ```
 
-
+--------------------------------------------------------------------
 
 
 
