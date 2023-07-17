@@ -15,8 +15,11 @@ The data set used for this demo is the 2015 subset of tweets for airlines. The d
 ## roadmap for this demo
 - set up the Pycharm environment
 - read in the source data set
-- 
-
+- lematize the tokens
+- nltk sentiment model
+- pytorch sentiment model
+- apply torch model to the data
+- textual similarity using R and Quanteda
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -115,7 +118,7 @@ The output of this step is below.
 
 ----------------------------------------------------------------------------------
 
-# nltk sentiment results
+# nltk sentiment model
 
 Now that the source data has been tokenized and lematized, the nltk sentiment function will determine the sentiment score. This is also accomplished with two Python functions: the first for applying the instantiated sentiment function and the second is a lambda function to apply the overall scoring method. The first function returns the polarity probabilities in a tuple with the relative probabilities for postive, neutral, and negative. Then the relative scores by label are put into their own column for futher analysis if needed. The last function determines the overall most likely sentiment score (label with the highest score) and puts that value into the 'sentiment' column. This is the column that is the final determination for this data set. 
 
@@ -156,7 +159,7 @@ plt.show(block = True)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
-# Pytorch sentiment analysis
+# pytorch sentiment model
 
 The next step is to determine the sentiment analysis using Pytorch and a pre-trained model from NLP town. The computing enviroment is the same but additional libraries will need to be imported as shown below.
 
@@ -204,7 +207,7 @@ Now that the model seems to be calibrated well, it's time to apply the model to 
 
 ----------------------------------------------------------------------------------------------------------------
 
-# apply model to the data
+# apply torch model to the data
 
 Since Pytorch will only read the first 512 characters, the sentiment score will be based on this cut off value. The process is implemted using a function to apply the model to the data and put the output in star ratings into a new column in a Pandas data frame. This model is also applied to the lower cased data but no other data prep steps were applied. 
 
@@ -237,7 +240,7 @@ plt.show(block = True)
 --------------------------------------------------------------------
 
 
-# apply textual similarity using R and Quanteda
+# textual similarity using R and Quanteda
 
 Next to demo the ability to use R from within Python and Pycharm, I will process a document similarity function that will calculate the similarity score as a percent between the documents. This would be used to group like text together for further analysis. 
 
@@ -259,7 +262,11 @@ library(quanteda.textstats)
 
 #set the seed number
 set.seed(12345)
+```
 
+Next, read in the source data and pre-process the file.
+
+```
 ###~~~
 #read in the source data set
 ###~~~
@@ -293,11 +300,11 @@ text_data_net_all$text[2]
 
 #look at the df object
 View(text_data_net_all)
-
 ```
 
-The initial step is to create a corpus and start with the data prep portion. This consists of removing symbols, padding, etc. from the data set.
+The bext step is to create a corpus and start with the data prep portion. This consists of removing symbols, padding, etc. from the data set.
 
+```
 ###~~~
 #data prep
 ###~~~
@@ -332,7 +339,7 @@ ntype(toks_text)
 toks_text[2] #look at an individual token for validation
 ```
 
-Next a data frame matrix is made to hold the output. Stop words are removed as well as any symbols or know characters that will bias the results.
+Next a data frame matrix is created to hold the output. Also, additional data pre-processing happens by removing stop words well as any symbols or known characters that will bias the results.
 
 ```
 #create a dfm
