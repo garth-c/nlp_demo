@@ -223,12 +223,172 @@ def sentiment_score(doc_string):
 docs['sentiment_score'] = (docs['text_cleaned'].apply(lambda x: sentiment_score(x[:512])))
 ```
 
+Plot the counts by star ratings.
+
+```
+#plotting of the sentiment counts
+import matplotlib.pyplot as plt
+counts = docs.sentiment_score.value_counts().plot(kind = 'bar')
+for i in counts.containers:
+    counts.bar_label(i, label_type = 'edge')
+plt.show(block = True)
+```
+
 --------------------------------------------------------------------
 
 
+# apply textual similarity using R and Quanteda
+
+Next to demo the ability to use R from within Python and Pycharm, I will process a document similarity function that will calculate the similarity score as a percent between the documents. This would be used to group like text together for further analysis. 
 
 
+The R code that was used is shown below. The first step is to make sure that the R plug in is downloaded and installed in Pycharm. Then the plug in needs to be pointed to the location of the R executable file. After this is done, then the R computing environment needs to be set up from within Pycharm and the needed libraries installed.
 
+```
+###~~~
+#set up the R computing environment
+###~~~
+
+#load the needed libs
+library(tidyverse)
+library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textplots)
+library(quanteda.textstats)
+
+
+#set the seed number
+set.seed(12345)
+
+###~~~
+#read in the source data set
+###~~~
+
+#read in the file .csv version
+text_data <- utils::read.csv('C:/Users/matri/Documents/my_documents/local_git_folder/python_code/nlp/tweets.csv')
+
+#validate the imported data set against the source data file
+View(text_data)
+names(text_data)
+dim(text_data)
+text_data$text[1] #validate the first record
+
+#remove line breaks in the text
+text_data_net <- as.data.frame(gsub(pattern = '\n',
+                                    replacement = '',
+                                    x = text_data$text))
+
+#give a value column name
+colnames(text_data_net) <- c('text')
+text_data_net$text[1]
+
+#preprocess all text to lower case
+text_data_net$text_adj <- stringr::str_trim(stringr::str_squish(base::tolower(text_data_net$text)))
+text_data_net$text_adj[1]
+
+#bind with ID column if needed
+text_data_net_all <- as.data.frame(cbind(text_data[,1], text_data_net[,2]))
+colnames(text_data_net_all) <- c('doc_id','text')
+text_data_net_all$text[2]
+
+#look at the df object
+View(text_data_net_all)
+
+```
+
+The initial step is to create a corpus and start with the data prep portion. This consists of removing symbols, padding, etc. from the data set.
+
+###~~~
+#data prep
+###~~~
+
+#create a corpus
+text_corp <- quanteda::corpus(x = text_data_net_all,
+                              text_field = 'text')
+
+#look at it
+print(text_corp)
+summary(text_corp, 25)
+
+#tokenize the corpus
+toks_text <- quanteda::tokens(x = text_corp,
+                              what = 'word',
+                              remove_symbols = TRUE,
+                              remove_numbers = FALSE,
+                              remove_url = TRUE,
+                              remove_separators = TRUE,
+                              split_hyphens = TRUE,
+                              padding = FALSE,
+                              verbose = TRUE,
+                              remove_punct = TRUE) %>%
+                       quanteda::tokens_tolower() %>%
+                       quanteda::tokens_wordstem() %>%
+                       quanteda::tokens_remove(pattern = stopwords('en'))
+
+#look at it & validate
+print(toks_text)
+ntoken(toks_text)
+ntype(toks_text)
+toks_text[2] #look at an individual token for validation
+```
+
+Next a data frame matrix is made to hold the output. Stop words are removed as well as any symbols or know characters that will bias the results.
+
+```
+#create a dfm
+text_dfm <- quanteda::dfm(x = toks_text,
+                          tolower = TRUE,
+                          remove_padding = TRUE,
+                          verbose = quanteda_options('verbose'))
+
+#remove the stop words
+text_dfm_net <-  quanteda::dfm_remove(x = text_dfm,
+                                      stopwords('english'))
+
+#additional removals if needed
+text_dfm_net <- dfm_remove(text_dfm_net, c('©', 'ltd'))
+
+#validate the dfm object
+print(text_dfm_net)
+ndoc(text_dfm_net)
+nfeat(text_dfm_net)
+topfeatures(text_dfm_net, 20)
+
+```
+
+Then the documument similarity score is calculated using the cosine similarity metric. 
+
+```
+###~~~
+#document similarity data frame
+###~~~
+
+#document similarities as a percentage
+dfm_similarities <- as.data.frame(quanteda.textstats::textstat_simil(x = text_dfm_net,
+                                                                     y = NULL,
+                                                                     margin = 'documents',
+                                                                     method = 'cosine',
+                                                                     min_simil = 0.95))
+
+#look at the output
+View(dfm_similarities)
+```
+
+Below is a snippet of the output from the document similarities function. The value in the column 'cosine' is the percent similar and the first two columns are the document numbers to reference.
+
+<img width="163" alt="image" src="https://github.com/garth-c/nlp_demo/assets/138831938/1555b926-8154-4d70-ba88-7bbdca1442af">
+
+For reference:
+document 8034 = "wsj team offering flight access journal content http co ptsbka4cdj"
+document 8167 = "wsj team offer flight access journal digital journal http co 2nzh3qoazo"
+document 15 = "thanks"
+document 3631 = "thanks"
+
+So as can be seen above, document similarity is a powerful method to group like unstructured textual data. The business value of this is high as similar comments are able to be grouped and analyzed further in order to meet the project goals.
+
+Thanks for reading this!
+
+-----------------------------------------------------------------------------
 
 ### Go back to my profile page
 [garth-c profile page] (https://github.com/garth-c)
