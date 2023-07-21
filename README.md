@@ -395,10 +395,13 @@ Below is a snippet of the output from the document similarities function. The va
 <img width="163" alt="image" src="https://github.com/garth-c/nlp_demo/assets/138831938/1555b926-8154-4d70-ba88-7bbdca1442af">
 
 For reference:
-document 8034 = "wsj team offering flight access journal content http co ptsbka4cdj"
-document 8167 = "wsj team offer flight access journal digital journal http co 2nzh3qoazo"
-document 15 = "thanks"
-document 3631 = "thanks"
++ document 8034 = "wsj team offering flight access journal content http co ptsbka4cdj"
+  
++ document 8167 = "wsj team offer flight access journal digital journal http co 2nzh3qoazo"
+  
++ document 15 = "thanks"
+  
++ document 3631 = "thanks"
 
 So as can be seen above, document similarity is a powerful method to group like unstructured textual data. The business value of this is high as similar comments are able to be grouped and analyzed further in order to meet the project goals.
 
