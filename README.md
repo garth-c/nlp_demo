@@ -1,8 +1,15 @@
 # NLP Demo
 
-This goal for this project is to demo NLP sentiment analysis capabilities in both Python and R through Python. The R portion will focus on the similarity scoring between the tweets and the Python section will focus on sentiment analysis. 
+In this NLP project, I am working in the world of natural language processing, combining sentiment analysis and cosine similarity to analyze text data. The project aims to extract valuable insights from textual content by determining sentiment polarity and measuring document similarity. Using NLP libraries in Python, I preprocess and clean the text data, preparing it for sentiment analysis. Through sentiment analysis, I will classify the sentiment of each document as positive, negative, or neutral, enabling us to understand the overall sentiment distribution in the dataset.
+
+Next, I will implement cosine similarity, a widely used measure for text similarity. By converting the documents into numerical vectors using techniques like a Document Term Matrix (DTM), I will calculate the cosine similarity scores to identify documents that exhibit similar content.
+
+With these analyses, the project offers valuable applications such as sentiment monitoring for customer reviews or social media sentiment tracking. Additionally, it aids in identifying similar documents for information retrieval and clustering tasks.
+
+Specifically, the goal for this project is to demo NLP sentiment analysis capabilities in both Python and R through Python. The R portion will focus on the similarity scoring between the tweets and the Python section will focus on sentiment analysis. 
 
 ### Data set description
+
 The data set used for this demo is the 2015 subset of tweets for airlines. The data set is from Kaggle.com and it is 14,519 records long and it contains publically available tweets regarding various aspects related to airlines. The tweets are all in English and the are in a single .csv file. A snippet of the file is shown below.
 
 <img width="472" alt="image" src="https://github.com/garth-c/nlp_demo/assets/138831938/c005c2ea-ebf5-4432-ae4a-3e6ec91f4cef">
