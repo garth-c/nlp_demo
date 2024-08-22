@@ -1,8 +1,14 @@
 # NLP Demo
 
-In this NLP project, I am working in the world of natural language processing, combining sentiment analysis and cosine similarity to analyze text data. The project aims to extract valuable insights from textual content by determining sentiment polarity and measuring document similarity. Using NLP libraries in Python, I preprocess and clean the text data, preparing it for sentiment analysis. Through sentiment analysis, I will classify the sentiment of each document as positive, negative, or neutral, enabling us to understand the overall sentiment distribution in the dataset.
+Business Objective:
+Classify unstructured text sentiment and similarities to use for analyzing customer behavior. 
 
-Next, I will implement cosine similarity, a widely used measure for text similarity. By converting the documents into numerical vectors using techniques like a Document Term Matrix (DTM), I will calculate the cosine similarity scores to identify documents that exhibit similar content.
+Project description:
+In this NLP project, I am working in the world of natural language processing, combining sentiment analysis and cosine similarity to analyze text data. The project aims to extract valuable insights from textual content by determining sentiment polarity and measuring document similarity. Using NLP libraries in Python, I preprocess and clean the text data, preparing it for sentiment analysis. 
+
+The two main methods used in this demo are:
+- sentiment analysis: classify the sentiment of each document as positive, negative, or neutral, enabling us to understand the overall customer sentiment distribution in the dataset
+- cosine similarity: convert the documents into numerical vectors using a Document Term Matrix (DTM)
 
 With these analyses, the project offers valuable applications such as sentiment monitoring for customer reviews or social media sentiment tracking. Additionally, it aids in identifying similar documents for information retrieval and clustering tasks.
 
@@ -170,7 +176,7 @@ plt.show(block = True)
 
 # pytorch sentiment model
 
-The next step is to determine the sentiment analysis using Pytorch and a pre-trained model from NLP town. The computing enviroment is the same but additional libraries will need to be imported as shown below.
+The next step is to determine the sentiment analysis using Pytorch and a pre-trained model from the NLP Town web site. The computing enviroment is the same but additional libraries will need to be imported as shown below.
 
 ```
 #transformers for language model
