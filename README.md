@@ -28,13 +28,23 @@ The data set used for this demo is the 2015 subset of tweets for airlines. The d
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 ## roadmap for this demo
-- set up the Pycharm environment
+- set up the Python IDE environment
 - read in the source data set
 - lematize the tokens
 - nltk sentiment model
 - pytorch sentiment model
 - apply torch model to the data
 - textual similarity using R and Quanteda
+
+```mermaid
+graph TD;
+    A[Set up PyCharm Environment] --> B[Read Source Data Set]
+    B --> C[Lemmatize Tokens]
+    C --> D[NLTK Sentiment Model]
+    D --> E[PyTorch Sentiment Model]
+    E --> F[Apply Torch Model to Data]
+    F --> G[Textual Similarity using R and Quanteda]
+```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -43,7 +53,7 @@ The data set used for this demo is the 2015 subset of tweets for airlines. The d
 The code below is a snapshop of my session info
 
 
-The code below is how I have set up my Pycharm environment
+The code below is how I have set up my Python IDE environment
 
 ```
 ###~~~
