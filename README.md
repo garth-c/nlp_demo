@@ -7,12 +7,27 @@ Project description:
 In this NLP project, I am working in the world of natural language processing, combining sentiment analysis and cosine similarity to analyze text data. The project aims to extract valuable insights from textual content by determining sentiment polarity and measuring document similarity. Using NLP libraries in Python, I preprocess and clean the text data, preparing it for sentiment analysis. 
 
 The two main methods used in this demo are:
-- sentiment analysis: classify the sentiment of each document as positive, negative, or neutral, enabling us to understand the overall customer sentiment distribution in the dataset
-- cosine similarity: convert the documents into numerical vectors using a Document Term Matrix (DTM)
+1) sentiment analysis: classify the sentiment of each document as positive, negative, or neutral, enabling us to understand the overall customer sentiment distribution in the dataset
+
+- Sentiment Scoring Logic at a high level is detailed below:
+The **Compound Score** ($c$) is the metric used in this demo to provide a single unidimensional measure of sentiment for a given tweet. It is computed by summing the valence scores of each word in the lexicon, adjusted according to rules, and then normalized to be between -1 (most negative) and +1 (most positive):
+
+$$x = \sum \text{valence scores}$$
+$$c = \frac{x}{\sqrt{x^2 + \alpha}}$$
+Where $\alpha$ is a normalization constant (typically 15). This allows for a standardized comparison across text of varying lengths.
+
+
+2) cosine similarity: convert the documents into numerical vectors using a Document Term Matrix (DTM)
+- Vector Space Modeling: Cosine Similarity at a high level is detailed below:
+To measure the similarity between customer tweets, I converted the text into a **Document-Term Matrix (DTM)**. The relationship between any two documents (vectors $\mathbf{A}$ and $\mathbf{B}$) is calculated using **Cosine Similarity**. 
+This metric measures the cosine of the angle between the two vectors, providing a similarity score between 0 and 1, regardless of the document length:
+$$\text{similarity}(\mathbf{A}, \mathbf{B}) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \sqrt{\sum_{i=1}^{n} B_i^2}}$$
+
+*A score closer to 1 indicates that the tweets share a high degree of thematic overlap.*
 
 With these analyses, the project offers valuable applications such as sentiment monitoring for customer reviews or social media sentiment tracking. Additionally, it aids in identifying similar documents for information retrieval and clustering tasks.
 
-Specifically, the goal for this project is to demo NLP sentiment analysis capabilities in both Python and R through Python (cross-language integration). The R portion will focus on the similarity scoring between the tweets and the Python section will focus on sentiment analysis. 
+Specifically, the goal for this project is to demo NLP sentiment analysis capabilities in both Python and R through Python (cross-language integration). The R portion will focus on the similarity scoring between text and the Python section will focus on sentiment analysis. 
 
 ### Data set description
 
@@ -38,7 +53,7 @@ The data set used for this demo is the 2015 subset of tweets for airlines. The d
 
 ```mermaid
 graph TD;
-    A[Set up PyCharm Environment] --> B[Read Source Data Set]
+    A[Set up Python IDE Environment] --> B[Read Source Data Set]
     B --> C[Lemmatize Tokens]
     C --> D[NLTK Sentiment Model]
     D --> E[PyTorch Sentiment Model]
@@ -147,15 +162,6 @@ The output of this step is below.
 
 Now that the source data has been tokenized and lemmatized, the nltk sentiment function will determine the sentiment score. This is also accomplished with two Python functions: the first for applying the instantiated sentiment function and the second is a lambda function to apply the overall scoring method. The first function returns the polarity probabilities in a tuple with the relative probabilities for positive, neutral, and negative. Then the relative scores by label are put into their own column for further analysis if needed. The last function determines the overall most likely sentiment score (label with the highest score) and puts that value into the 'sentiment' column. This is the column that is the final determination for this data set. 
 
-### Sentiment Scoring Logic
-The **Compound Score** ($c$) is the metric used in this demo to provide a single unidimensional measure of sentiment for a given tweet. It is computed by summing the valence scores of each word in the lexicon, adjusted according to rules, and then normalized to be between -1 (most negative) and +1 (most positive):
-
-$$x = \sum \text{valence scores}$$
-$$c = \frac{x}{\sqrt{x^2 + \alpha}}$$
-
-Where $\alpha$ is a normalization constant (typically 15). This allows for a standardized comparison across tweets of varying lengths.
-
-
 ```
 ###~~~
 #perform the sentiment analysis
@@ -195,7 +201,7 @@ plt.show(block = True)
 
 # pytorch sentiment model
 
-The next step is to determine the sentiment analysis using Pytorch and a pre-trained model from the NLP Town web site. The computing environment is the same but additional libraries will need to be imported as shown below.
+The next step is to determine the sentiment analysis using Pytorch and a pre-trained model from the NLP Town repo. The computing environment is the same but additional libraries will need to be imported as shown below.
 
 ```
 #transformers for language model
@@ -283,18 +289,9 @@ The plot shows a much more negative sentiment than the nltk version. This also h
 
 # textual similarity using R and Quanteda
 
-Next to demo the ability to use R from within Python and Pycharm, I will process a document similarity function that will calculate the similarity score as a percent between the documents. This would be used to group like text together for further analysis. 
+Next to demo the ability to use R from within a Python IDE, I will process a document similarity function that will calculate the similarity score as a percent between the documents. This would be used to group 'like' text together for further analysis. 
 
-### Vector Space Modeling: Cosine Similarity
-To measure the similarity between customer tweets, I converted the text into a **Document-Term Matrix (DTM)**. The relationship between any two documents (vectors $\mathbf{A}$ and $\mathbf{B}$) is calculated using **Cosine Similarity**. 
-
-This metric measures the cosine of the angle between the two vectors, providing a similarity score between 0 and 1, regardless of the document length:
-
-$$\text{similarity}(\mathbf{A}, \mathbf{B}) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \sqrt{\sum_{i=1}^{n} B_i^2}}$$
-
-*A score closer to 1 indicates that the tweets share a high degree of thematic overlap.*
-
-The R code that was used is shown below. The first step is to make sure that the R plug in is downloaded and installed in the Python IDE. Then the plug in needs to be pointed to the location of the R executable file. After this is done, then the R computing environment needs to be set up from within Pycharm and the needed libraries installed.
+The R code that was used is shown below. The first step is to make sure that the R plug in is downloaded and installed in the Python IDE. Then the plug in needs to be pointed to the location of the R executable file. After this is done, then the R computing environment needs to be set up from within the Python IDE and the needed libraries installed.
 
 ```
 ###~~~
